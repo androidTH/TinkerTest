@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hoolai.tinkertest.MainActivity">
-  <RelativeLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      tools:layout_editor_absoluteY="0dp"
-      tools:layout_editor_absoluteX="8dp">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sample patch!"/>
+        android:text="Sample patch!" />
 
     <Button
         android:id="@+id/loadPatch"
@@ -23,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:text="load patch"/>
+        android:text="load patch" />
 
     <Button
         android:id="@+id/loadLibrary"
@@ -32,7 +27,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/loadPatch"
-        android:text="load library"/>
+        android:text="load library" />
 
     <Button
         android:id="@+id/cleanPatch"
@@ -41,7 +36,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/loadLibrary"
-        android:text="clean patch"/>
+        android:text="clean patch" />
+
     <Button
         android:id="@+id/killSelf"
         android:layout_width="wrap_content"
@@ -49,7 +45,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/cleanPatch"
-        android:text="kill self"/>
+        android:text="kill self" />
+
     <Button
         android:id="@+id/showInfo"
         android:layout_width="wrap_content"
@@ -57,6 +54,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/killSelf"
-        android:text="show info"/>
-  </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+        android:text="show info" />
+</RelativeLayout>

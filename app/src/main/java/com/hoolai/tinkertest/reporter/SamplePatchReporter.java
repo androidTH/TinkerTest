@@ -19,12 +19,12 @@ package com.hoolai.tinkertest.reporter;
 import android.content.Context;
 import android.content.Intent;
 
+import com.hoolai.tinkertest.util.UpgradePatchRetry;
 import com.tencent.tinker.lib.reporter.DefaultPatchReporter;
 import com.tencent.tinker.loader.shareutil.SharePatchInfo;
 
 import java.io.File;
 
-import tinker.sample.android.util.UpgradePatchRetry;
 
 /**
  * optional, you can just use DefaultPatchReporter

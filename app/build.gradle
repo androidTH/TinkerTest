@@ -1,95 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.tencent.tinker.patch'
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-    //recommend
-    dexOptions {
-        jumboMode = true
-    }
-
-    signingConfigs {
-        release {
-            try {
-                storeFile file("./keystore/release.keystore")
-                storePassword "testres"
-                keyAlias "testres"
-                keyPassword "testres"
-            } catch (ex) {
-                throw new InvalidUserDataException(ex.toString())
-            }
-        }
-
-        debug {
-            storeFile file("./keystore/debug.keystore")
-        }
-    }
-
-
-    defaultConfig {
-        applicationId "com.hoolai.tinkertest"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        multiDexEnabled true
-        buildConfigField "String", "MESSAGE", "\"I am the base apk\""
-//        buildConfigField "String", "MESSAGE", "\"I am the patch apk\""
-        /**
-         * client version would update with patch
-         * so we can get the newly git version easily!
-         */
-        buildConfigField "String", "TINKER_ID", "\"${getTinkerIdValue()}\""
-        buildConfigField "String", "PLATFORM",  "\"all\""
-    }
-    buildTypes {
-        release {
-            minifyEnabled true
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            debuggable true
-            minifyEnabled false
-            signingConfig signingConfigs.debug
-        }
-    }
-}
-
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:multidex:1.0.1"
-    provided('com.tencent.tinker:tinker-android-anno:1.7.7')
-        //tinker的核心库
-    compile('com.tencent.tinker:tinker-android-lib:1.7.7')
-}
-
-def gitSha() {
-    try {
-        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
-        if (gitRev == null) {
-            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-        }
-        return gitRev
-    } catch (Exception e) {
-        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-    }
-}
-
 def javaVersion = JavaVersion.VERSION_1_7
 
 android {
@@ -118,24 +29,19 @@ android {
         }
 
         debug {
-            storeFile file("./keystore/debug.keystore")
+//            storeFile file("./keystore/debug.keystore")
         }
     }
 
     defaultConfig {
-        applicationId "tinker.sample.android"
-        minSdkVersion 10
-        targetSdkVersion 22
+        applicationId "com.hoolai.tinkertest"
+        minSdkVersion 15
+        targetSdkVersion 25
         versionCode 1
-        versionName "1.0.0"
-        /**
-         * you can use multiDex and install it in your ApplicationLifeCycle implement
-         */
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
         multiDexEnabled true
-        /**
-         * buildConfig can change during patch!
-         * we can use the newly value when patch
-         */
         buildConfigField "String", "MESSAGE", "\"I am the base apk\""
 //        buildConfigField "String", "MESSAGE", "\"I am the patch apk\""
         /**
@@ -143,8 +49,49 @@ android {
          * so we can get the newly git version easily!
          */
         buildConfigField "String", "TINKER_ID", "\"${getTinkerIdValue()}\""
-        buildConfigField "String", "PLATFORM",  "\"all\""
+        buildConfigField "String", "PLATFORM", "\"all\""
     }
+    buildTypes {
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:multidex:1.0.1"
+    provided('com.tencent.tinker:tinker-android-anno:1.7.7')
+    //tinker的核心库
+    compile('com.tencent.tinker:tinker-android-lib:1.7.7')
+}
+
+def gitSha() {
+    try {
+        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+        if (gitRev == null) {
+            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+        }
+        return gitRev
+    } catch (Exception e) {
+        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+    }
+}
+
+
 
 //    aaptOptions{
 //        cruncherEnabled false
@@ -160,25 +107,6 @@ android {
 //            applicationId 'tinker.sample.android.flavor2'
 //        }
 //    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            debuggable true
-            minifyEnabled false
-            signingConfig signingConfigs.debug
-        }
-    }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-}
 
 def bakPath = file("${buildDir}/bakApk/")
 
@@ -415,7 +343,7 @@ if (buildWithTinker()) {
     }
 
     List<String> flavors = new ArrayList<>();
-    project.android.productFlavors.each {flavor ->
+    project.android.productFlavors.each { flavor ->
         flavors.add(flavor.name)
     }
     boolean hasFlavors = flavors.size() > 0

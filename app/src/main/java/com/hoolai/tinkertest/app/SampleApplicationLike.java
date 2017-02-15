@@ -23,6 +23,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 
+import com.hoolai.tinkertest.Log.MyLogImp;
+import com.hoolai.tinkertest.util.SampleApplicationContext;
+import com.hoolai.tinkertest.util.TinkerManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.Tinker;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
@@ -30,9 +33,6 @@ import com.tencent.tinker.loader.app.ApplicationLifeCycle;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
-import tinker.sample.android.Log.MyLogImp;
-import tinker.sample.android.util.SampleApplicationContext;
-import tinker.sample.android.util.TinkerManager;
 
 /**
  * because you can not use any other class in your application, we need to
