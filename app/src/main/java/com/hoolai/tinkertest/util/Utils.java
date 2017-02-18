@@ -94,8 +94,8 @@ public class Utils {
         try {
             File data = Environment.getDataDirectory();
             StatFs sf = new StatFs(data.getPath());
-            availableSize = (long) sf.getAvailableBlocks() * (long) sf.getBlockSize();
-            allSize = (long) sf.getBlockCount() * (long) sf.getBlockSize();
+            availableSize = (long) sf.getAvailableBlocks() * (long) sf.getBlockSize();//可用空间大小
+            allSize = (long) sf.getBlockCount() * (long) sf.getBlockSize();//总大小
         } catch (Exception e) {
             allSize = 0;
         }

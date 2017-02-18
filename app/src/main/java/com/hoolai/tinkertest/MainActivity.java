@@ -69,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
         cleanPatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tinker.with(getApplicationContext()).cleanPatch();
+                //二个都可以
+//                Tinker.with(getApplicationContext()).cleanPatch();
+                TinkerInstaller.cleanPatch(getApplicationContext());
             }
         });
 
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         btnBug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextView.setText("修复了bug");
+                mTextView.setText("bug修复失败");
             }
         });
     }

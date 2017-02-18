@@ -84,6 +84,11 @@ public class SampleResultService extends DefaultTinkerResultService {
                         public void onScreenOff() {
                             restartProcess();
                         }
+
+                        @Override
+                        public void onScreenNo() {
+
+                        }
                     });
                 }
             } else {
@@ -104,13 +109,18 @@ public class SampleResultService extends DefaultTinkerResultService {
     static class ScreenState {
         interface IOnScreenOff {
             void onScreenOff();
+            void onScreenNo();
         }
 
         ScreenState(Context context, final IOnScreenOff onScreenOffInterface) {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SCREEN_OFF);
+            filter.addAction(Intent.ACTION_SCREEN_ON);
             context.registerReceiver(new BroadcastReceiver() {
 
+//                Intent.ACTION_SCREEN_ON ： 屏幕点亮
+//                Intent.ACTION_SCREEN_OFF ：屏幕关闭
+//                Intent.ACTION_USER_PRESENT： 用户解锁
                 @Override
                 public void onReceive(Context context, Intent in) {
                     String action = in == null ? "" : in.getAction();
@@ -121,6 +131,10 @@ public class SampleResultService extends DefaultTinkerResultService {
 
                         if (onScreenOffInterface != null) {
                             onScreenOffInterface.onScreenOff();
+                        }
+                    } else if (Intent.ACTION_SCREEN_ON.equals(action)) {
+                        if (onScreenOffInterface != null) {
+                            onScreenOffInterface.onScreenNo();
                         }
                     }
                 }
