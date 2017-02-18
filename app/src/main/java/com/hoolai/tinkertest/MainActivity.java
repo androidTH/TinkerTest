@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Tinker.MainActivity";
 
+    private TextView mTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showInfo(com.hoolai.tinkertest.MainActivity.this);
+            }
+        });
+
+        mTextView= (TextView) findViewById(R.id.tvMessage);
+        Button btnBug= (Button) findViewById(R.id.btnBug);
+        btnBug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTextView.setText("修复了bug");
             }
         });
     }
