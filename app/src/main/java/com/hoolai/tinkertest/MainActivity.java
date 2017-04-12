@@ -3,6 +3,7 @@ package com.hoolai.tinkertest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onResume();
         Utils.setBackground(false);
-
+//        Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP;
+//        Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT;
     }
 
     @Override
